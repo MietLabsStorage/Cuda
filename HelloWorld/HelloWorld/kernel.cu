@@ -49,6 +49,7 @@ void about_devices()
 		printf("Registers per block : %d\n", dev_prop.regsPerBlock);
 		printf("Warp size : %d\n", dev_prop.warpSize);
 		printf("Max threads per block : %d\n", dev_prop.maxThreadsPerBlock);
+		printf("Max threads dim : %d*%d*%d\n", dev_prop.maxThreadsDim[0], dev_prop.maxThreadsDim[1], dev_prop.maxThreadsDim[2]);
 		printf("Total constant memory : %llu\n", dev_prop.totalConstMem);
 		printf("SM count: %d\n", dev_prop.multiProcessorCount);
 	}
