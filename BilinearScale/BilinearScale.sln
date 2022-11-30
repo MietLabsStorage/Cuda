@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33103.201
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BilinearScale", "BilinearScale\BilinearScale.vcxproj", "{A8E7447E-D969-4358-8428-AB68703F9BCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A8E7447E-D969-4358-8428-AB68703F9BCF}.Debug|x64.ActiveCfg = Debug|x64
+		{A8E7447E-D969-4358-8428-AB68703F9BCF}.Debug|x64.Build.0 = Debug|x64
+		{A8E7447E-D969-4358-8428-AB68703F9BCF}.Release|x64.ActiveCfg = Release|x64
+		{A8E7447E-D969-4358-8428-AB68703F9BCF}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {846B2E0F-8B1E-48F7-861A-7DDFD93B01DF}
+	EndGlobalSection
+EndGlobal
