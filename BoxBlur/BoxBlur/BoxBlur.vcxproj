@@ -80,9 +80,6 @@
     <CudaCompile Include="kernel.cu" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="mj.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="exception.h" />
     <ClInclude Include="helper_image.h" />
     <ClInclude Include="helper_string.h" />

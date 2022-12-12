@@ -5,10 +5,10 @@
 
 using namespace std;
 
-texture<unsigned char, 2, cudaReadModeNormalizedFloat> g_Bilinear;
+texture<unsigned char, 2, cudaReadModeElementType> g_Bilinear;
 __global__ void Bilinear_kernel(unsigned char* pDst,
     float factor,
-    int w, int h, int p)
+    int w, int h)
 {
     int tidx = threadIdx.x + blockIdx.x * blockDim.x;
     int tidy = threadIdx.y + blockIdx.y * blockDim.y;
@@ -21,8 +21,7 @@ __global__ void Bilinear_kernel(unsigned char* pDst,
         float a = tex2D(g_Bilinear, tidy + 0.5f, start + 0.5f);
         float b = tex2D(g_Bilinear, tidy + 0.5f, stop + 0.5f);
         float linear = a + t*(b-a);
-        unsigned char r = (unsigned char)(linear * 255.0f);
-        pDst[tidx + tidy * p] = r;
+        pDst[tidx + tidy * w] = (int)linear;
     }
 }
 
@@ -47,16 +46,17 @@ void saveImage(char* file, unsigned char* pixels, unsigned int width, unsigned i
     }
 }
 
-unsigned int width = 2048, height = 1024;
-int main()
+unsigned int width = 512, height = 512;
+
+void rotate(char* name_in, char* name_out)
 {
     unsigned char* d_result_pixels;
     unsigned char* h_result_pixels;
     unsigned char* h_pixels = NULL;
     unsigned char* d_pixels = NULL;
 
-    char* src_path = "mj.png";
-    char* d_result_path = "mj_d.pgm";
+    char* src_path = name_in;//"mj.pgm";
+    char* d_result_path = name_out;// "mj_d.pgm";
     loadImage(src_path, &h_pixels, &width, &height);
     int image_size = sizeof(unsigned char) * width * height;
     h_result_pixels = (unsigned char*)malloc(image_size);
@@ -77,12 +77,17 @@ int main()
     else {
         printf("Texture was successfully binded\n");
     }
-    /* CUDA method */
-    Bilinear_kernel << < grid, block >> > (d_result_pixels, 32, width, height, width);
+    Bilinear_kernel << < grid, block >> > (d_result_pixels, 2, width, height );
     cudaMemcpy(h_result_pixels, d_result_pixels, image_size, cudaMemcpyDeviceToHost);
+
     saveImage(d_result_path, h_result_pixels, width, height);
     cudaUnbindTexture(&g_Bilinear);
+}
 
+int main()
+{
+    rotate("mj.pgm", "mj1.pgm");
+    rotate("mj1.pgm", "mj2.pgm");
     printf("DONE\n");
 
     return 0;
